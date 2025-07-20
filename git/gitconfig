@@ -1,0 +1,95 @@
+[user]
+    # TODO: Update these with your information
+    name = colliand
+    email = colliand@gmail.comm
+
+[core]
+    editor = nano
+    autocrlf = input
+    excludesfile = ~/.gitignore_global
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = simple
+    autoSetupRemote = true
+
+[pull]
+    rebase = false
+
+[color]
+    ui = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red
+    new = green
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[alias]
+    # Basic shortcuts
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    
+    # Logging
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    
+    # Show files in last commit
+    dl = "!git ll -1"
+    
+    # Show a diff of the last commit
+    dlc = diff --cached HEAD^
+    
+    # Show modified files in last commit
+    dr  = "!f() { git diff "$1"^.."$1"; }; f"
+    lc  = "!f() { git ll "$1"^.."$1"; }; f"
+    
+    # Find a file path in codebase
+    f = "!git ls-files | grep -i"
+    
+    # Search/grep on filename
+    gr = grep -Ii
+    
+    # Grep from root folder
+    gra = "!f() { A=$(pwd) && TOPLEVEL=$(git rev-parse --show-toplevel) && cd $TOPLEVEL && git grep --full-name -In $1 | xargs -I{} echo $TOPLEVEL/{} && cd $A; }; f"
+    
+    # List all aliases
+    la = "!git config -l | grep alias | cut -c 7-"
+
+[diff]
+    tool = vscode
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+    tool = vscode
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+
+[rerere]
+    enabled = true
+
+[help]
+    autocorrect = 1
+
+[credential]
+    helper = store

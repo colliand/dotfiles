@@ -17,7 +17,7 @@ filetype plugin indent on
 set number
 
 " Show relative line numbers (helpful for movement)
-set relativenumber
+" set relativenumber
 
 " Highlight current line
 set cursorline
@@ -90,7 +90,7 @@ set background=dark
 
 " Enable 256 colors if supported
 if &t_Co >= 256
-    colorscheme desert
+    colorscheme koehler 
 endif
 
 " Highlight trailing whitespace

@@ -1,0 +1,228 @@
+" ~/.vimrc - Beginner-friendly Vim configuration
+" This config makes vim more approachable for new users
+
+" =====================================================
+" BASIC SETTINGS
+" =====================================================
+" Use vim settings, not vi settings (must be first)
+set nocompatible
+
+" Enable syntax highlighting
+syntax on
+
+" Enable file type detection and plugins
+filetype plugin indent on
+
+" Show line numbers
+set number
+
+" Show relative line numbers (helpful for movement)
+set relativenumber
+
+" Highlight current line
+set cursorline
+
+" Show matching brackets
+set showmatch
+
+" Case insensitive search, unless uppercase letters are used
+set ignorecase
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Search as you type
+set incsearch
+
+" Enable mouse support (helpful for beginners)
+set mouse=a
+
+" Show current mode in status line
+set showmode
+
+" Show partial commands
+set showcmd
+
+" Always show status line
+set laststatus=2
+
+" Better command line completion
+set wildmenu
+set wildmode=longest:full,full
+
+" =====================================================
+" INDENTATION & FORMATTING
+" =====================================================
+" Use spaces instead of tabs
+set expandtab
+
+" Number of spaces for each tab
+set tabstop=4
+
+" Number of spaces for auto-indent
+set shiftwidth=4
+
+" Number of spaces for tab in insert mode
+set softtabstop=4
+
+" Copy indent from current line when starting new line
+set autoindent
+
+" Smart indent for programming
+set smartindent
+
+" Wrap long lines
+set wrap
+
+" Break lines at word boundaries
+set linebreak
+
+" =====================================================
+" VISUAL IMPROVEMENTS
+" =====================================================
+" Show invisible characters (helpful for debugging)
+set list
+set listchars=tab:»·,trail:·,extends:>,precedes:<,nbsp:+
+
+" Better colors for dark terminals
+set background=dark
+
+" Enable 256 colors if supported
+if &t_Co >= 256
+    colorscheme desert
+endif
+
+" Highlight trailing whitespace
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+" =====================================================
+" BEHAVIOR IMPROVEMENTS
+" =====================================================
+" Keep some context around cursor
+set scrolloff=5
+set sidescrolloff=5
+
+" Don't redraw during macros (faster)
+set lazyredraw
+
+" Better backspace behavior
+set backspace=indent,eol,start
+
+" Allow unsaved buffers in background
+set hidden
+
+" Reduce update time for better experience
+set updatetime=250
+
+" Don't create swap files (can be annoying for beginners)
+set noswapfile
+
+" But do create backups in a central location
+set backup
+set backupdir=~/.vim/backup//
+set writebackup
+
+" Persistent undo (undo survives file close)
+if has('persistent_undo')
+    set undofile
+    set undodir=~/.vim/undo//
+endif
+
+" Create necessary directories
+if !isdirectory($HOME . "/.vim/backup")
+    call mkdir($HOME . "/.vim/backup", "p")
+endif
+if !isdirectory($HOME . "/.vim/undo")
+    call mkdir($HOME . "/.vim/undo", "p")
+endif
+
+" =====================================================
+" BEGINNER-FRIENDLY KEY MAPPINGS
+" =====================================================
+" Set leader key to comma (easier than default backslash)
+let mapleader = ","
+
+" Quick save with leader+w
+nnoremap <leader>w :w<CR>
+
+" Quick quit with leader+q
+nnoremap <leader>q :q<CR>
+
+" Save and quit with leader+x
+nnoremap <leader>x :wq<CR>
+
+" Clear search highlighting with leader+space
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Make Y behave like C and D (yank to end of line)
+nnoremap Y y$
+
+" Keep visual selection after indenting
+vnoremap < <gv
+vnoremap > >gv
+
+" Move lines up/down with Alt+j/k (or Option+j/k on Mac)
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+
+" =====================================================
+" SPLIT WINDOW MANAGEMENT
+" =====================================================
+" More natural split opening
+set splitbelow
+set splitright
+
+" Easier split navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" =====================================================
+" FILE TYPE SPECIFIC SETTINGS
+" =====================================================
+" Use 2 spaces for certain file types
+autocmd FileType html,css,javascript,json,yaml,vim setlocal tabstop=2 shiftwidth=2 softtabstop=2
+
+" Remove trailing whitespace on save for code files
+autocmd BufWritePre *.py,*.js,*.jsx,*.ts,*.tsx,*.php,*.rb,*.go,*.rs,*.c,*.cpp,*.h,*.hpp :%s/\s\+$//e
+
+" =====================================================
+" STATUS LINE
+" =====================================================
+" Custom status line showing useful info
+set statusline=%f                    " filename
+set statusline+=%m                   " modified flag
+set statusline+=%r                   " readonly flag
+set statusline+=%=                   " switch to right side
+set statusline+=%l/%L                " current line/total lines
+set statusline+=\ (%p%%)             " percentage through file
+set statusline+=\ [%{&fileformat}]   " file format
+set statusline+=\ %y                 " file type
+
+" =====================================================
+" HELPFUL COMMANDS FOR BEGINNERS
+" =====================================================
+" Create a command to show this help
+command! VimHelp help | only
+
+" Command to edit vimrc quickly
+command! EditVimrc edit ~/.vimrc
+
+" Command to reload vimrc
+command! ReloadVimrc source ~/.vimrc | echo "Vimrc reloaded!"
+
+" =====================================================
+" BEGINNER TIPS (shown at startup)
+" =====================================================
+" Show helpful reminder for beginners
+if !exists("g:vim_tips_shown")
+    let g:vim_tips_shown = 1
+    autocmd VimEnter * if argc() == 0 | echo "Vim Quick Start: 'i' to insert, 'Esc' to normal mode, ':w' to save, ':q' to quit, ',w' to quick save" | endif
+endif

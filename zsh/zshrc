@@ -196,9 +196,9 @@ extract() {
 # ZSH PLUGINS
 # =====================================================
 # Load zsh-syntax-highlighting (must be last)
-if [[ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+# if [[ -f ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+#    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# fi
 
 # Load zsh-autosuggestions
 if [[ -f ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then

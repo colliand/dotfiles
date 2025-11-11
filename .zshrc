@@ -216,6 +216,28 @@ if [[ -f ~/.zshrc.local ]]; then
     source ~/.zshrc.local
 fi
 
+# Terminal themes directory
+THEMES_DIR="$HOME/dotfiles/zsh/themes"
+
+# Function to change theme
+change_theme() {
+    if [ -n "$1" ] && [ -f "$THEMES_DIR/$1.zsh-theme" ]; then
+        cp "$THEMES_DIR/$1.zsh-theme" ~/.zshrc.local
+        source ~/.zshrc.local
+        echo "Theme changed to $1"
+    else
+        echo "Invalid theme name or file not found"
+    fi
+}
+
+# Default theme
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+else
+    cp "$THEMES_DIR/default.zsh-theme" ~/.zshrc.local
+    source ~/.zshrc.local
+fi
+
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba shell init' !!
 export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/mamba';

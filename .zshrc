@@ -73,8 +73,8 @@ PROMPT='%{$fg[blue]%}%c%{$reset_color%}$(git_branch) %{$fg[green]%}❯%{$reset_c
 # ENVIRONMENT VARIABLES
 # =====================================================
 # Editor
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 
 # Less colors (for man pages, etc.)
 export LESS_TERMCAP_mb=$'\e[1;32m'

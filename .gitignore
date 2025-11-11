@@ -1,0 +1,6 @@
+# Ignore all .local files
+*.local
+
+# Ignore specific local configuration files
+.zshrc.local
+.env.local

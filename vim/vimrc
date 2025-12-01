@@ -10,6 +10,12 @@ set nocompatible
 " Enable syntax highlighting
 syntax on
 
+" Color shcme
+colorscheme darkblue
+
+" Fort set and size
+set guifont=JetBrains\ Mono:h12
+
 " Enable file type detection and plugins
 filetype plugin indent on
 

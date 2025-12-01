@@ -4,3 +4,4 @@
 # Ignore specific local configuration files
 .zshrc.local
 .env.local
+.aider*

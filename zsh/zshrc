@@ -103,6 +103,11 @@ if [[ "$PLATFORM" == "macos" ]]; then
         eval "$(/usr/local/bin/brew shellenv)"
     fi
     
+    # Tailscale (App Store version)
+    if [[ -d "/Applications/Tailscale.app/Contents/MacOS" ]]; then
+        export PATH="/Applications/Tailscale.app/Contents/MacOS:$PATH"
+    fi
+
     # macOS-specific aliases
     alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
     alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
@@ -252,3 +257,4 @@ eval "$(pyenv init - zsh)"
 # Projects workflow script 2025-11-15
 export PATH="$HOME/scripts:$PATH"
 # Add a trailing newline for consistency
+export OLLAMA_API_BASE=http://orchard:11434

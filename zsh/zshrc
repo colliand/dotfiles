@@ -163,6 +163,9 @@ alias create-contexts='mkdir -p ~/contexts/{2i2c,bc9,bclt,cm,public}/{active,arc
 # Wake up orchard from on the lan
 alias wake-orchard='wakeonlan E0:4F:43:E6:3B:A9'
 
+# Claude Code CLI
+alias claude='$HOME/.local/bin/claude'
+
 
 
 # Directory listing with colors (platform-specific)

@@ -1,7 +1,7 @@
 [user]
     # TODO: Update these with your information
-    name = colliand
-    email = colliand@gmail.comm
+	name = James Colliander
+	email = colliand@gmail.com
 
 [core]
     editor = nano
@@ -91,5 +91,12 @@
 [help]
     autocorrect = 1
 
-[credential]
-    helper = store
+# credential.helper is intentionally NOT set here.
+# On macOS, the system git (via Homebrew) defaults to osxkeychain — that's correct.
+# On Linux (e.g. orchard), set it in ~/.gitconfig.local:
+#   [credential]
+#       helper = store
+#
+# Machine-local overrides (credential helper, signing key, work email, etc.)
+[include]
+    path = ~/.gitconfig.local

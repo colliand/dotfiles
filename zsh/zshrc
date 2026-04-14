@@ -186,29 +186,31 @@ fi
 #   cx                 → cd ~/nexus/contexts (browse from root)
 cx() {
     local root="$HOME/nexus/contexts"
-    if [[ -z "$1" ]]; then
-        cd "$root"
-        return
-    fi
-    local matches
-    matches=$(find "$root" -mindepth 2 -maxdepth 4 -type d -name "*${1}*" 2>/dev/null | sort)
-    local count
-    count=$(echo "$matches" | grep -c . 2>/dev/null)
-    if [[ -z "$matches" ]]; then
-        echo "cx: no match for '$1'"
-        return 1
-    elif [[ $count -eq 1 ]]; then
-        cd "$matches"
-        echo "$matches"
+    local query="${1:-}"
+    local target
+    if command -v fzf &>/dev/null; then
+        target=$(find "$root" -mindepth 2 -maxdepth 4 -type d 2>/dev/null | sort \
+            | fzf --query="$query" --select-1 --exit-0 \
+                  --preview='ls {}' --preview-window=right:40%)
     else
-        echo "$matches" | nl -ba
-        echo -n "cx: enter number (or q to cancel): "
-        read choice
-        [[ "$choice" == "q" ]] && return
-        local target
-        target=$(echo "$matches" | sed -n "${choice}p")
-        [[ -n "$target" ]] && cd "$target" && echo "$target"
+        local matches
+        matches=$(find "$root" -mindepth 2 -maxdepth 4 -type d -name "*${query}*" 2>/dev/null | sort)
+        local count
+        count=$(echo "$matches" | grep -c . 2>/dev/null)
+        if [[ -z "$matches" ]]; then
+            echo "cx: no match for '$query'"
+            return 1
+        elif [[ $count -eq 1 ]]; then
+            target="$matches"
+        else
+            echo "$matches" | nl -ba
+            echo -n "cx: enter number (or q to cancel): "
+            read choice
+            [[ "$choice" == "q" ]] && return
+            target=$(echo "$matches" | sed -n "${choice}p")
+        fi
     fi
+    [[ -n "$target" ]] && cd "$target" && echo "$target"
 }
 
 # Create directory and cd into it

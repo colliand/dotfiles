@@ -98,17 +98,18 @@ create_symlinks() {
     log_info "Creating symlinks..."
     
     # Backup existing files
-    for file in ~/.zshrc ~/.gitconfig ~/.vimrc; do
+    for file in ~/.zshrc ~/.gitconfig ~/.vimrc ~/.tmux.conf; do
         if [[ -f "$file" ]] && [[ ! -L "$file" ]]; then
             log_warning "Backing up existing $file to ${file}.backup"
             mv "$file" "${file}.backup"
         fi
     done
-    
+
     # Create symlinks
     ln -sf "$dotfiles_dir/zsh/zshrc" ~/.zshrc
     ln -sf "$dotfiles_dir/git/gitconfig" ~/.gitconfig
-    ln -sf "$dotfiles_dir/vim/vimrc" ~/.vimrc    
+    ln -sf "$dotfiles_dir/vim/vimrc" ~/.vimrc
+    ln -sf "$dotfiles_dir/tmux/tmux.conf" ~/.tmux.conf
     log_success "Symlinks created"
 }
 
